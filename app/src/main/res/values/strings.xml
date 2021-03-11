@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Github User</string>
+    <string name="credit">Created By : Ahmad Sufyan</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="repository">Repository</string>
+</resources>
