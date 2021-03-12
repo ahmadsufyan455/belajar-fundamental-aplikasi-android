@@ -30,5 +30,4 @@ class ViewPagerAdapter(private val context: Context, fm: FragmentManager) :
             else -> context.resources.getString(R.string.follower)
         }
     }
-
 }

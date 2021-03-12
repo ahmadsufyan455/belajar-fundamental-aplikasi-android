@@ -3,16 +3,15 @@ package com.fyndev.githubuser.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.githubuser.adapter.UserAdapter
-import com.fyndev.githubuser.data.DataUser
-import com.fyndev.githubuser.data.User
 import com.fyndev.githubuser.databinding.ActivityHomeBinding
+import com.fyndev.githubuser.viewmodel.UserViewModel
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val dataUser = ArrayList<User>(DataUser.getDataUser())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +20,19 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val userAdapter = UserAdapter(dataUser)
+        val viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[UserViewModel::class.java]
+
+        val userAdapter = UserAdapter()
+
+        viewModel.setUser()
+        viewModel.getUser().observe(this, { dataUser ->
+            if (dataUser != null) {
+                userAdapter.setData(dataUser)
+            }
+        })
 
         // setup recyclerview
         with(binding.rvUser) {
@@ -36,7 +47,6 @@ class HomeActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                userAdapter.filter.filter(newText)
                 return false
             }
         })
