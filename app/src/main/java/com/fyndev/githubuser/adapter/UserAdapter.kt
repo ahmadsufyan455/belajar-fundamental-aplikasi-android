@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.fyndev.githubuser.data.User
 import com.fyndev.githubuser.databinding.ItemUserBinding
 import com.fyndev.githubuser.detail.DetailUserActivity
@@ -21,11 +22,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemUserBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+                ItemUserBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                )
         )
     }
 
