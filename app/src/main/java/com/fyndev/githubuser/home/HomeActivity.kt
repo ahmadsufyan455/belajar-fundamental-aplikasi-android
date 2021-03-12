@@ -1,6 +1,7 @@
 package com.fyndev.githubuser.home
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -21,8 +22,8 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
+                this,
+                ViewModelProvider.NewInstanceFactory()
         )[UserViewModel::class.java]
 
         val userAdapter = UserAdapter()
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.getUser().observe(this, { dataUser ->
             if (dataUser != null) {
                 userAdapter.setData(dataUser)
+                binding.progressBar.visibility = View.GONE
             }
         })
 
