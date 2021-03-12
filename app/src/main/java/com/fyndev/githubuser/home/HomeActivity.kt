@@ -1,7 +1,9 @@
 package com.fyndev.githubuser.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
@@ -40,12 +42,27 @@ class HomeActivity : AppCompatActivity() {
         with(binding.rvUser) {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             setHasFixedSize(true)
+            userAdapter.notifyDataSetChanged()
             adapter = userAdapter
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                binding.progressBar.visibility = View.VISIBLE
+                query?.let { viewModel.setFilter(it) }
+
+                viewModel.getFilter().observe(this@HomeActivity, { filterUser ->
+                    if (filterUser != null) {
+                        userAdapter.setData(filterUser)
+                        binding.progressBar.visibility = View.GONE
+                    }
+                })
+
+                val inputMethodManager =
+                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                binding.searchView.clearFocus()
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
