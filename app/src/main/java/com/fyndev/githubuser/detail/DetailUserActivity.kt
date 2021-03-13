@@ -27,8 +27,8 @@ class DetailUserActivity : AppCompatActivity() {
         val dataUser = intent.getParcelableExtra<User>(EXTRA_DETAIL)
 
         val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
+                this,
+                ViewModelProvider.NewInstanceFactory()
         )[DetailUserViewModel::class.java]
 
         dataUser?.let { viewModel.setData(it.login) }
@@ -54,6 +54,7 @@ class DetailUserActivity : AppCompatActivity() {
 
         // inflate viewpager with tabLayout
         val viewPagerAdapter = ViewPagerAdapter(this, supportFragmentManager)
+        viewPagerAdapter.username = dataUser?.login
         binding.viewPager.adapter = viewPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
     }

@@ -9,25 +9,25 @@ import com.fyndev.githubuser.detail.FollowersFragment
 import com.fyndev.githubuser.detail.FollowingFragment
 
 class ViewPagerAdapter(private val context: Context, fm: FragmentManager) :
-    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getCount(): Int {
-        return 2
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+    companion object {
+        private val TAB_TITLES = intArrayOf(R.string.follower, R.string.following)
     }
+
+    var username: String? = null
+
+    override fun getCount(): Int = TAB_TITLES.size
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = FollowingFragment()
-            1 -> fragment = FollowersFragment()
+            0 -> fragment = FollowersFragment.getUsername(username.toString())
+            1 -> fragment = FollowingFragment.getUsername(username.toString())
         }
 
         return fragment as Fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return when (position) {
-            0 -> context.resources.getString(R.string.following)
-            else -> context.resources.getString(R.string.follower)
-        }
-    }
+    override fun getPageTitle(position: Int): CharSequence = context.resources.getString(TAB_TITLES[position])
 }

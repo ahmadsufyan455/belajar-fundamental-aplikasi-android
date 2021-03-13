@@ -16,4 +16,10 @@ interface Endpoint {
 
     @GET("users/{username}")
     suspend fun getDetailUser(@Path("username") username: String): Response<User>
+
+    @GET("users/{username}/followers")
+    suspend fun getFollowers(@Path("username") username: String): Response<ArrayList<User>>
+
+    @GET("users/{username}/following")
+    suspend fun getFollowing(@Path("username") username: String): Response<ArrayList<User>>
 }
