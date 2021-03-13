@@ -1,7 +1,9 @@
 package com.fyndev.githubuser.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -48,12 +50,19 @@ class HomeActivity : AppCompatActivity() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // progressbar still gone when we press search button 2 times
                 binding.progressBar.visibility = View.VISIBLE
                 query?.let { viewModel.setFilter(it) }
 
                 viewModel.getFilter().observe(this@HomeActivity, { filterUser ->
-                    if (filterUser != null) {
+                    if (filterUser != null && filterUser.size != 0) {
                         userAdapter.setData(filterUser)
+                        binding.progressBar.visibility = View.GONE
+                        binding.rvUser.visibility = View.VISIBLE
+                        binding.imgNotFound.visibility = View.GONE
+                    } else {
+                        binding.imgNotFound.visibility = View.VISIBLE
+                        binding.rvUser.visibility = View.GONE
                         binding.progressBar.visibility = View.GONE
                     }
                 })
@@ -69,5 +78,9 @@ class HomeActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        binding.icLang.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
     }
 }

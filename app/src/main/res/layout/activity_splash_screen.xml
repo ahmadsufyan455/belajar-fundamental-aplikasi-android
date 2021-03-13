@@ -20,8 +20,8 @@
 
     <TextView
         android:id="@+id/tvCredit"
-        android:layout_width="172dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="@string/credit"
         android:textColor="@color/white"
