@@ -65,13 +65,6 @@
         android:layout_below="@id/appBar"
         tools:listitem="@layout/item_user" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/custom_progressbar" />
-
     <ImageView
         android:id="@+id/imgNotFound"
         android:layout_width="wrap_content"
@@ -81,5 +74,12 @@
         android:src="@drawable/not_found_undraw"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/custom_progressbar" />
 
 </RelativeLayout>

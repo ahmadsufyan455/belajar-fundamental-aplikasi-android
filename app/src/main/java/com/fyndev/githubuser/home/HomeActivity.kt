@@ -17,6 +17,8 @@ import com.fyndev.githubuser.viewmodel.UserViewModel
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var userAdapter: UserAdapter
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +26,15 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val userAdapter = UserAdapter()
+        userAdapter = UserAdapter()
 
-        val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
         )[UserViewModel::class.java]
-        viewModel.setUser()
-        viewModel.getUser().observe(this, { dataUser ->
-            if (dataUser != null) {
-                userAdapter.setData(dataUser)
-                binding.progressBar.visibility = View.GONE
-            }
-        })
+
+        showUser()
+        filterUser()
 
         // setup recyclerview
         with(binding.rvUser) {
@@ -48,26 +46,13 @@ class HomeActivity : AppCompatActivity() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // progressbar still gone when we press search button 2 times
+                binding.rvUser.visibility = View.GONE
+                binding.imgNotFound.visibility = View.GONE
                 binding.progressBar.visibility = View.VISIBLE
-                binding.rvUser.visibility = View.INVISIBLE
                 query?.let { viewModel.setFilter(it) }
 
-                viewModel.getFilter().observe(this@HomeActivity, { filterUser ->
-                    if (filterUser != null && filterUser.size != 0) {
-                        userAdapter.setData(filterUser)
-                        binding.progressBar.visibility = View.GONE
-                        binding.rvUser.visibility = View.VISIBLE
-                        binding.imgNotFound.visibility = View.GONE
-                    } else {
-                        binding.imgNotFound.visibility = View.VISIBLE
-                        binding.rvUser.visibility = View.INVISIBLE
-                        binding.progressBar.visibility = View.GONE
-                    }
-                })
-
                 val inputMethodManager =
-                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
                 binding.searchView.clearFocus()
                 return true
@@ -81,5 +66,30 @@ class HomeActivity : AppCompatActivity() {
         binding.icLang.setOnClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
+    }
+
+    private fun showUser() {
+        viewModel.setUser()
+        viewModel.getUser().observe(this, { dataUser ->
+            if (dataUser != null) {
+                userAdapter.setData(dataUser)
+                binding.progressBar.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun filterUser() {
+        viewModel.getFilter().observe(this@HomeActivity, { filterUser ->
+            if (filterUser != null && filterUser.size != 0) {
+                userAdapter.setData(filterUser)
+                binding.progressBar.visibility = View.GONE
+                binding.imgNotFound.visibility = View.GONE
+                binding.rvUser.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.rvUser.visibility = View.GONE
+                binding.imgNotFound.visibility = View.VISIBLE
+            }
+        })
     }
 }
