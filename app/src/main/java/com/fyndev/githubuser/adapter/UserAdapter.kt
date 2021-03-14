@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.fyndev.githubuser.data.User
 import com.fyndev.githubuser.databinding.ItemUserBinding
 import com.fyndev.githubuser.detail.DetailUserActivity

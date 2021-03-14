@@ -22,16 +22,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
+
+        val userAdapter = UserAdapter()
 
         val viewModel = ViewModelProvider(
                 this,
                 ViewModelProvider.NewInstanceFactory()
         )[UserViewModel::class.java]
-
-        val userAdapter = UserAdapter()
-
         viewModel.setUser()
         viewModel.getUser().observe(this, { dataUser ->
             if (dataUser != null) {

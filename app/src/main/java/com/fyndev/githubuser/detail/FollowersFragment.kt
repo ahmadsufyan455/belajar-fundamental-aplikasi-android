@@ -13,6 +13,7 @@ import com.fyndev.githubuser.viewmodel.FollowersViewModel
 
 class FollowersFragment : Fragment() {
 
+    // singleton function to put data login
     companion object {
         private const val ARG_USERNAME = "username"
         fun getUsername(username: String): FollowersFragment {
@@ -38,11 +39,11 @@ class FollowersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // get data login from singleton
         val username = arguments?.getString(ARG_USERNAME).toString()
         val userAdapter = UserAdapter()
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FollowersViewModel::class.java]
-
         viewModel.setData(username)
         viewModel.getData().observe(this, { users ->
             if (users != null && users.size != 0) {

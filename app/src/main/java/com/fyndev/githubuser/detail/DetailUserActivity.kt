@@ -52,7 +52,7 @@ class DetailUserActivity : AppCompatActivity() {
 
         binding.icBack.setOnClickListener { finish() }
 
-        // inflate viewpager with tabLayout
+        // setup viewpager with tabLayout
         val viewPagerAdapter = ViewPagerAdapter(this, supportFragmentManager)
         viewPagerAdapter.username = dataUser?.login
         binding.viewPager.adapter = viewPagerAdapter
