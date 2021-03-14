@@ -52,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // progressbar still gone when we press search button 2 times
                 binding.progressBar.visibility = View.VISIBLE
+                binding.rvUser.visibility = View.INVISIBLE
                 query?.let { viewModel.setFilter(it) }
 
                 viewModel.getFilter().observe(this@HomeActivity, { filterUser ->
@@ -62,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
                         binding.imgNotFound.visibility = View.GONE
                     } else {
                         binding.imgNotFound.visibility = View.VISIBLE
-                        binding.rvUser.visibility = View.GONE
+                        binding.rvUser.visibility = View.INVISIBLE
                         binding.progressBar.visibility = View.GONE
                     }
                 })

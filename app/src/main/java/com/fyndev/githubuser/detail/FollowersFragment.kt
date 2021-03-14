@@ -45,8 +45,11 @@ class FollowersFragment : Fragment() {
 
         viewModel.setData(username)
         viewModel.getData().observe(this, { users ->
-            if (users != null) {
+            if (users != null && users.size != 0) {
                 userAdapter.setData(users)
+            } else {
+                binding.imgEmpty.visibility = View.VISIBLE
+                binding.rvFollowers.visibility = View.INVISIBLE
             }
         })
 
