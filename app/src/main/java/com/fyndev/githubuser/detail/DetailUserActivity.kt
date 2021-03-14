@@ -1,6 +1,7 @@
 package com.fyndev.githubuser.detail
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -27,8 +28,8 @@ class DetailUserActivity : AppCompatActivity() {
         val dataUser = intent.getParcelableExtra<User>(EXTRA_DETAIL)
 
         val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
+            this,
+            ViewModelProvider.NewInstanceFactory()
         )[DetailUserViewModel::class.java]
 
         dataUser?.let { viewModel.setData(it.login) }
@@ -46,7 +47,10 @@ class DetailUserActivity : AppCompatActivity() {
                 binding.detailContainer.tvFollower.text = user.followers
                 binding.detailContainer.tvFollowing.text = user.following
                 binding.detailContainer.tvRepository.text = user.public_repos
-                binding.detailContainer.tvLocation.text = user.location ?: "unknown"
+                binding.detailContainer.tvLocation.text = user.location
+
+                binding.viewLoad.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
             }
         })
 
