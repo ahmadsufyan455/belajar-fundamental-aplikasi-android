@@ -45,7 +45,7 @@ class FollowersFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FollowersViewModel::class.java]
         viewModel.setData(username)
-        viewModel.getData().observe(this, { users ->
+        viewModel.getData().observe(viewLifecycleOwner, { users ->
             if (users != null && users.size != 0) {
                 userAdapter.setData(users)
             } else {
@@ -58,7 +58,6 @@ class FollowersFragment : Fragment() {
         with(binding.rvFollowers) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            userAdapter.notifyDataSetChanged()
             adapter = userAdapter
         }
     }

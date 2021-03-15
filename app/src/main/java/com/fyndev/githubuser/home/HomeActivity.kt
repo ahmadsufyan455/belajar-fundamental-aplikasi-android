@@ -29,8 +29,8 @@ class HomeActivity : AppCompatActivity() {
         userAdapter = UserAdapter()
 
         viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
+                this,
+                ViewModelProvider.NewInstanceFactory()
         )[UserViewModel::class.java]
 
         showUser()
@@ -40,7 +40,6 @@ class HomeActivity : AppCompatActivity() {
         with(binding.rvUser) {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             setHasFixedSize(true)
-            userAdapter.notifyDataSetChanged()
             adapter = userAdapter
         }
 
@@ -52,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
                 query?.let { viewModel.setFilter(it) }
 
                 val inputMethodManager =
-                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
                 binding.searchView.clearFocus()
                 return true

@@ -44,7 +44,7 @@ class FollowingFragment : Fragment() {
         val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FollowingViewModel::class.java]
 
         viewModel.setData(username)
-        viewModel.getData().observe(this, { users ->
+        viewModel.getData().observe(viewLifecycleOwner, { users ->
             if (users != null && users.size != 0) {
                 userAdapter.setData(users)
             } else {
@@ -57,7 +57,6 @@ class FollowingFragment : Fragment() {
         with(binding.rvFollowing) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            userAdapter.notifyDataSetChanged()
             adapter = userAdapter
         }
     }
