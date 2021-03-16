@@ -28,8 +28,8 @@ class DetailUserActivity : AppCompatActivity() {
         val dataUser = intent.getParcelableExtra<User>(EXTRA_DETAIL)
 
         val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
+                this,
+                ViewModelProvider.NewInstanceFactory()
         )[DetailUserViewModel::class.java]
 
         dataUser?.let { viewModel.setData(it.login) }
