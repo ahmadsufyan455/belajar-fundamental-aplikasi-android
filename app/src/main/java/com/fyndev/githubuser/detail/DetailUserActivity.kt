@@ -1,13 +1,21 @@
 package com.fyndev.githubuser.detail
 
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.contentValuesOf
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.fyndev.githubuser.R
 import com.fyndev.githubuser.adapter.ViewPagerAdapter
 import com.fyndev.githubuser.data.User
+import com.fyndev.githubuser.database.DatabaseContract
+import com.fyndev.githubuser.database.DatabaseContract.UserColumn.Companion.CONTENT_URI
+import com.fyndev.githubuser.database.UserHelper
 import com.fyndev.githubuser.databinding.ActivityDetailUserBinding
 import com.fyndev.githubuser.viewmodel.DetailUserViewModel
 
@@ -18,6 +26,8 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityDetailUserBinding
+    private lateinit var userHelper: UserHelper
+    private lateinit var uriWithId: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +36,9 @@ class DetailUserActivity : AppCompatActivity() {
 
         // get data object from intent with parcelable
         val dataUser = intent.getParcelableExtra<User>(EXTRA_DETAIL)
+        val id = dataUser?.id
+        val username = dataUser?.login
+        val imgPhoto = dataUser?.avatar_url
 
         val viewModel = ViewModelProvider(
                 this,
@@ -54,6 +67,40 @@ class DetailUserActivity : AppCompatActivity() {
             }
         })
 
+        // open database
+        userHelper = UserHelper.getInstance(applicationContext)
+        userHelper.open()
+
+        // set favorite user
+        var statusFavorite = false
+        setStatusFavorite(statusFavorite)
+        binding.btnFavorite.setOnClickListener {
+            if (!statusFavorite) {
+                val values = contentValuesOf(
+                        DatabaseContract.UserColumn._ID to id,
+                        DatabaseContract.UserColumn.USERNAME to username,
+                        DatabaseContract.UserColumn.AVATAR to imgPhoto
+                )
+                contentResolver.insert(CONTENT_URI, values)
+                statusFavorite = !statusFavorite
+                setStatusFavorite(statusFavorite)
+                Toast.makeText(this, "Add to favorite", Toast.LENGTH_SHORT).show()
+            } else {
+                uriWithId = Uri.parse("$CONTENT_URI/$id")
+                contentResolver.delete(uriWithId, null, null)
+                statusFavorite = !statusFavorite
+                setStatusFavorite(statusFavorite)
+                Toast.makeText(this, "Remove from favorite", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // database state
+        val cursor: Cursor = userHelper.queryById(id.toString())
+        if (cursor.moveToNext()) {
+            statusFavorite = true
+            setStatusFavorite(statusFavorite)
+        }
+
         binding.icBack.setOnClickListener { finish() }
 
         // setup viewpager with tabLayout
@@ -61,5 +108,13 @@ class DetailUserActivity : AppCompatActivity() {
         viewPagerAdapter.username = dataUser?.login
         binding.viewPager.adapter = viewPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
+    }
+
+    private fun setStatusFavorite(statusFavorite: Boolean) {
+        if (statusFavorite) {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite)
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.ic_favorite_border)
+        }
     }
 }

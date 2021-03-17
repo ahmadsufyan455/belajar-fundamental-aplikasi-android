@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.githubuser.adapter.UserAdapter
 import com.fyndev.githubuser.databinding.ActivityHomeBinding
+import com.fyndev.githubuser.favorite.FavoriteUserActivity
 import com.fyndev.githubuser.viewmodel.UserViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -64,6 +65,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.icLang.setOnClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+
+        binding.icFavorite.setOnClickListener {
+            startActivity(Intent(this, FavoriteUserActivity::class.java))
         }
     }
 

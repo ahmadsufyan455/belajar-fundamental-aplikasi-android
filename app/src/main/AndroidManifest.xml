@@ -4,6 +4,12 @@
     package="com.fyndev.githubuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.dicoding.picodiploma.mynotesapp.READ_DATABASE" />
+    <uses-permission android:name="com.dicoding.picodiploma.mynotesapp.WRITE_DATABASE" />
+
+    <queries>
+        <package android:name="com.fyndev.githubuser" />
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -13,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:ignore="AllowBackup">
+        <provider
+            android:name=".provider.UserProvider"
+            android:authorities="com.fyndev.githubuser"
+            android:exported="true"
+            android:readPermission="com.fyndev.githubuser.READ_DATABASE"
+            android:writePermission="com.fyndev.githubuser.WRITE_DATABASE"/>
+
+        <activity android:name=".favorite.FavoriteUserActivity" />
         <activity android:name=".detail.DetailUserActivity" />
         <activity android:name=".home.HomeActivity" />
         <activity android:name=".home.SplashScreenActivity">
