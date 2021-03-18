@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ConsumerApp</string>
+    <string name="credit">Created By : Ahmad Sufyan</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="repository">Repository</string>
+    <string name="search">Search User…</string>
+    <string name="favorite_user">Favorite User</string>
+</resources>
