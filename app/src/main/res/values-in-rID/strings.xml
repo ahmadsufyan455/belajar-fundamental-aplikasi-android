@@ -7,4 +7,12 @@
     <string name="repository">Repositori</string>
     <string name="search">Cari Pengguna…    </string>
     <string name="favorite_user">User Favorit</string>
+    <string name="notification">notification</string>
+    <string name="language">language</string>
+    <string name="title_language">Ganti Bahasa</string>
+    <string name="reminder_off">Pengingat dimatikan</string>
+    <string name="reminder_on">Pengingat diatur jam 9 pagi</string>
+    <string name="reminder">Atur Pengingat Jam 9 Pagi</string>
+    <string name="summary_language">Indonesia</string>
+    <string name="setting">Pengaturan</string>
 </resources>

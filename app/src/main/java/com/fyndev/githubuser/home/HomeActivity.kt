@@ -3,7 +3,6 @@ package com.fyndev.githubuser.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.githubuser.adapter.UserAdapter
 import com.fyndev.githubuser.databinding.ActivityHomeBinding
 import com.fyndev.githubuser.favorite.FavoriteUserActivity
+import com.fyndev.githubuser.preference.SettingPreferenceActivity
 import com.fyndev.githubuser.viewmodel.UserViewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -30,8 +30,8 @@ class HomeActivity : AppCompatActivity() {
         userAdapter = UserAdapter()
 
         viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
+            this,
+            ViewModelProvider.NewInstanceFactory()
         )[UserViewModel::class.java]
 
         showUser()
@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
                 query?.let { viewModel.setFilter(it) }
 
                 val inputMethodManager =
-                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
                 binding.searchView.clearFocus()
                 return true
@@ -63,8 +63,8 @@ class HomeActivity : AppCompatActivity() {
             }
         })
 
-        binding.icLang.setOnClickListener {
-            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        binding.icSetting.setOnClickListener {
+            startActivity(Intent(this, SettingPreferenceActivity::class.java))
         }
 
         binding.icFavorite.setOnClickListener {
