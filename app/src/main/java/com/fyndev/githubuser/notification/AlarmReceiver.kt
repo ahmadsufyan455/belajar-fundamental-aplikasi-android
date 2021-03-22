@@ -32,22 +32,23 @@ class AlarmReceiver : BroadcastReceiver() {
         val intent = Intent(context, SplashScreenActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
-        val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val mNotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.github))
-                .setContentTitle(context.resources.getString(R.string.notification_title))
-                .setContentText(context.resources.getString(R.string.notification_text))
-                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-                .setSound(alarmSound)
-                .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.github_dark))
+            .setContentTitle(context.resources.getString(R.string.notification_title))
+            .setContentText(context.resources.getString(R.string.notification_text))
+            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+            .setSound(alarmSound)
+            .setAutoCancel(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                    CHANNEL_ID,
-                    CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
+                CHANNEL_ID,
+                CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT
             )
 
             channel.enableVibration(true)
@@ -74,17 +75,18 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val pendingIntent = PendingIntent.getBroadcast(context, 101, intent, 0)
         alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.timeInMillis,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
         )
     }
 
     fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, 101, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getBroadcast(context, 101, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         pendingIntent.cancel()
 
         alarmManager.cancel(pendingIntent)
