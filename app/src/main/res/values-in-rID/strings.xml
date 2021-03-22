@@ -17,4 +17,5 @@
     <string name="setting">Pengaturan</string>
     <string name="notification_title">Github User</string>
     <string name="notification_text">Ayo temukan user favoritmu di github</string>
+    <string name="no_data">Tidak ada data</string>
 </resources>

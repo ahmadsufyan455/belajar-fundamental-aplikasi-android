@@ -16,4 +16,5 @@
     <string name="setting">Settings</string>
     <string name="notification_title">Github User</string>
     <string name="notification_text">Let\'s find popular user on github</string>
+    <string name="no_data">No Data</string>
 </resources>
