@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fyndev.githubuser">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
@@ -24,6 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:ignore="AllowBackup">
+        <receiver
+            android:name=".notification.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name=".preference.SettingPreferenceActivity" />
 
         <provider

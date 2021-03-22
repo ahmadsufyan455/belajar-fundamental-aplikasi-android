@@ -15,4 +15,6 @@
     <string name="reminder">Atur Pengingat Jam 9 Pagi</string>
     <string name="summary_language">Indonesia</string>
     <string name="setting">Pengaturan</string>
+    <string name="notification_title">Github User</string>
+    <string name="notification_text">Ayo temukan user favoritmu di github</string>
 </resources>

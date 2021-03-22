@@ -14,4 +14,6 @@
     <string name="reminder">Reminder at 9.00 AM</string>
     <string name="summary_language">English</string>
     <string name="setting">Settings</string>
+    <string name="notification_title">Github User</string>
+    <string name="notification_text">Let\'s find popular user on github</string>
 </resources>
