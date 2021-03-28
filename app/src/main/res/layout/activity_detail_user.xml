@@ -53,6 +53,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/btnShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/ic_share"
+                app:layout_constraintEnd_toStartOf="@+id/btnFavorite"
+                app:layout_constraintTop_toTopOf="@+id/btnFavorite"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
                 android:id="@+id/btnFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.fyndev.githubuser.detail
 
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -99,6 +100,15 @@ class DetailUserActivity : AppCompatActivity() {
         if (cursor.moveToNext()) {
             statusFavorite = true
             setStatusFavorite(statusFavorite)
+        }
+
+        // share user
+        binding.btnShare.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, "He is an extraordinary user, his name is: ${dataUser?.login}")
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Share to:"))
         }
 
         binding.icBack.setOnClickListener { finish() }
