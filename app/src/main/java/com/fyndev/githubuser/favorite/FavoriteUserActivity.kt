@@ -4,6 +4,7 @@ import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fyndev.githubuser.adapter.UserAdapter
@@ -62,6 +63,9 @@ class FavoriteUserActivity : AppCompatActivity() {
             val users = deferredUser.await()
             if (users.size > 0) {
                 userAdapter.setData(users)
+            } else {
+                binding.rvUser.visibility = View.GONE
+                binding.imgEmpty.visibility = View.VISIBLE
             }
         }
     }
