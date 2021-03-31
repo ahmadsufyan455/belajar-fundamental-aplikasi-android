@@ -43,3 +43,9 @@ Clone or Download This Repository Into Your Computer And Open With Android Studi
 ```
 https://github.com/ahmadsufyan455/belajar-fundamental-aplikasi-android.git
 ```
+
+## Screenshot
+
+<a href="https://ibb.co/C6Yvk1R"><img src="https://i.ibb.co/gdfw5jk/demo-github.png" alt="demo-github" border="0" /></a>
+
+> :warning: **Stop Plagiarism**: Learn from scratch and understand the code you write, it will make you successful.!
