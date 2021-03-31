@@ -38,7 +38,8 @@
         <receiver
             android:name=".notification.AlarmReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="ExportedReceiver" />
 
         <activity android:name=".preference.SettingPreferenceActivity" />
 
